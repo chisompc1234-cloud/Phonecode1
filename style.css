@@ -13,8 +13,8 @@ main {
 }
 .one {
   background: white;
-  width: 200px;
-  height: 200px;
+  width: 100px;
+  height: 100px;
   border: 2px solid white;
   box-shadow: inset 0 0 8px grey,
   inset 0 0 20px bisque,
@@ -22,7 +22,6 @@ main {
   margin: 18px auto;
   border-radius: 15px;
   transition: transform 0.6s ease;
-  transform: scale(0.3);
 }
 .one:active {
   transform: rotate(1turn);
