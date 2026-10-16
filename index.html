@@ -1,58 +1,88 @@
-<!DOCTYPE html>
-<html>
 
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#09090f">
+  <title>SomMusic</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#16a34a">
 </head>
-
 <body>
-  <header>
-    <h1>Welcome to October</h1>
-    <p>My Month of Divine wonders and evidence</p>
+  <header class="topbar">
+    <h2>SomMusic</h2>
+    <span>YOUR MUSIC. YOUR VIBE.</span>
   </header>
-  <main>
-    <h2>
-      Things i trust God to help me with this month of October 
-    </h2>
-    <p>
-      Below are the list if things im trusting Yahweh to help me with this month of October. Someone may ask, How're you sure that God can help you? <br>
-      Well, do you know my Elroi?<br>
-      Do you know my Elroi?<br>
-      Let's go through this list very quickly my people.<br>
-    </p>
-    <p>So I'm trusting God to:</p>
-    <ul>
-      <li>Help my Prayer and spiritual life</li>
-      <li>Give me hunger for his presence</li>
-      <li>Restore my spiritual life</li>
-      <li>Deliver me from attack on my mind</li>
-      <li>Break every yoke of the enemy on my mind and give me peace</li>
-      <li>Restore the sanity of innocence of my mimd</li>
-      <li>Give me hunger for greatness and Grace for greatness to start doing great things</li>
-      <li>Show me meecy and Grace</li>
-      <li>Break the yoke of stammering from my life</li>
-      <li>Give me confidence to speak and deliver me from shyness</li>
-      <li>Let your mercy speak over my kif ein the area of my academics: may i make my parents proud oh Lord in JESUS NAME AMEN</li>
-      <li>Bless my parents, open doors for us by your Grace and Mercy, let every closed doors be forced open right now by your Grace and mercy</li>
-      <li>Protect and preserve us from death, evil and harm.<br>
-        Don't let the plans of the enemy over our
-        lives to ever come to pass, preserve us by your Mercy, keep us in a State of good health in JESUS NAME AMEN
-      </li>
-      <li>Let your Grace speak over us, grant all our heart desires and be glorified in our lives in JESUS NAME AMEN AMEN AMEN SETTLED</li>
-    </ul>
-  </main>
-    <footer>
-      <h3>Things i need to do now</h3>
-      <div class="div">
-        <p>💡Love God with all my heart</p>
-        <p>💡Read his word and obey him</p>
-        <p>💡Abstain from sin and iniquity</p>
-        <b>THANK YOU JESUS ❗</b>
-      </div>
-    </footer>
-</body>
 
+  <main class="container">
+    <section class="hero">
+      <p class="eyebrow">WELCOME BACK</p>
+      <h1>Good music.<br><span>Good mood.</span></h1>
+      <p>Your personal music space.</p>
+      <label class="upload-btn" for="fileInput">
+        ＋ Add songs
+      </label>
+      <input id="fileInput" type="file" accept="audio/*" multiple hidden>
+    </section>
+
+    <section class="library">
+      <div class="section-heading">
+        <h2 id="sectionTitle">Your library</h2>
+        <span id="songCount">0 songs</span>
+      </div>
+
+      <input id="search" type="search"
+        placeholder="Search your music..." autocomplete="off">
+
+      <div class="tabs">
+        <button class="tab active" data-view="all">All songs</button>
+        <button class="tab" data-view="favourites">♥ Favourites</button>
+        <button class="tab" data-view="playlists">Playlists</button>
+      </div>
+
+      <div id="playlistTools" hidden>
+        <button id="createPlaylist" class="upload-btn">
+          ＋ Create playlist
+        </button>
+        <div id="playlistList"></div>
+      </div>
+
+      <div id="songList" class="song-list">
+        <p class="empty">Your music will appear here.<br>
+          Tap “Add songs” to get started.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="player">
+    <div class="now-playing">
+      <div class="cover">♫</div>
+      <div class="track-info">
+        <strong id="trackTitle">Nothing playing</strong>
+        <small id="trackArtist">Choose a song</small>
+      </div>
+      <button id="favCurrent" class="icon-btn" aria-label="Favourite current song">♡</button>
+    </div>
+
+    <audio id="audio" preload="metadata"></audio>
+
+    <input id="progress" type="range"
+      min="0" max="100" value="0" aria-label="Song progress">
+
+    <div class="time-row">
+      <span id="currentTime">0:00</span>
+      <span id="duration">0:00</span>
+    </div>
+
+    <div class="controls">
+      <button id="previous" aria-label="Previous song">|◀</button>
+      <button id="play" class="play-btn" aria-label="Play">▶</button>
+      <button id="next" aria-label="Next song">▶|</button>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
 </html>
