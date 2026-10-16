@@ -242,9 +242,8 @@ button {
 }
 
 .player {
-  position: sticky;
-  z-index: 5;
-  right: 0;
+  position: fixed;
+  z-index: 50;
   bottom: 0;
   left: 0;
   padding: 15px max(18px, calc((100% - 650px) / 2));
