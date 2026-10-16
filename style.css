@@ -26,10 +26,9 @@ body {
   font-family: Arial, sans-serif;
   width: 100%;
   max-width: 800px;
-  border: 2px solid white;
-  border-radius: 10px;
-  height: 100dvh;
-  max-height: fit-content;
+  border: 2px solid black;
+  border-radius: 20px;
+  min-height: 100dvh;
   overflow-y: auto;
 }
 
@@ -51,7 +50,7 @@ button {
   border: 1px solid #252532;
   position: sticky;
   top: 0;
-  background: brown;
+  background: rgba(4, 15, 40);
   border-radius: 10px;
   color: black;
   margin-bottom: 20px;
@@ -246,7 +245,8 @@ button {
   z-index: 50;
   bottom: 0;
   left: 0;
-  padding: 15px max(18px, calc((100% - 650px) / 2));
+  right: 0;
+  padding: 10px max(18px, calc((100% - 650px) / 2));
   border-top: 1px solid #353043;
   background: #11111a;
   box-shadow: 0 -10px 30px #0005;
