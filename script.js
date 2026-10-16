@@ -446,3 +446,171 @@ if ("serviceWorker" in navigator) {
       });
   });
 }
+
+
+
+
+/* SomMusic: Storage Info panel */
+(function () {
+  function createStoragePanel() {
+    // Prevent duplicate panels
+    if (document.getElementById("som-storage-panel")) return;
+
+    const panel = document.createElement("section");
+    panel.id = "som-storage-panel";
+
+    panel.style.cssText = `
+      margin: 20px auto;
+      padding: 18px;
+      max-width: 500px;
+      border: 1px solid #444;
+      border-radius: 16px;
+      background: #171717;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      box-sizing: border-box;
+    `;
+
+    panel.innerHTML = `
+      <h2 style="margin-top:0">Storage Info</h2>
+
+      <p id="som-storage-used">Checking storage...</p>
+      <p id="som-storage-quota">Checking quota...</p>
+      <p id="som-storage-persistent">
+        Checking persistence...
+      </p>
+
+      <button id="som-storage-refresh"
+        style="padding:12px;margin:6px 6px 6px 0;
+        border:0;border-radius:8px;cursor:pointer">
+        Refresh information
+      </button>
+
+      <button id="som-storage-protect"
+        style="padding:12px;margin:6px 0;
+        border:0;border-radius:8px;cursor:pointer">
+        Request persistent storage
+      </button>
+
+      <p id="som-storage-message"
+        style="font-size:13px;line-height:1.5">
+        Storage figures are estimates for this app's origin.
+      </p>
+    `;
+
+    // Add panel near the end of the page
+    document.body.appendChild(panel);
+
+    const byId = id => document.getElementById(id);
+
+    function formatBytes(bytes) {
+      if (bytes == null) return "Unavailable";
+
+      if (bytes < 1024 * 1024) {
+        return (bytes / 1024).toFixed(1) + " KB";
+      }
+
+      if (bytes < 1024 ** 3) {
+        return (bytes / (1024 ** 2)).toFixed(2) + " MB";
+      }
+
+      return (bytes / (1024 ** 3)).toFixed(2) + " GB";
+    }
+
+    async function refreshStorage() {
+      byId("som-storage-used").textContent =
+        "Storage used: checking...";
+
+      try {
+        if (!navigator.storage ||
+            !navigator.storage.estimate) {
+          throw new Error("Storage estimates unavailable.");
+        }
+
+        const info = await navigator.storage.estimate();
+
+        byId("som-storage-used").textContent =
+          "Storage used: " + formatBytes(info.usage);
+
+        byId("som-storage-quota").textContent =
+          "Estimated quota: " + formatBytes(info.quota);
+
+        const used = info.usage ?? 0;
+        const quota = info.quota ?? 0;
+
+        byId("som-storage-message").textContent =
+          quota > 0
+            ? "Estimated quota used: " +
+              ((used / quota) * 100).toFixed(2) + "%."
+            : "The browser did not report a usable quota.";
+
+        if (navigator.storage.persisted) {
+          const persistent =
+            await navigator.storage.persisted();
+
+          byId("som-storage-persistent").textContent =
+            "Persistent storage: " +
+            (persistent ? "Granted" : "Not granted");
+        } else {
+          byId("som-storage-persistent").textContent =
+            "Persistent status: unavailable";
+        }
+      } catch (error) {
+        byId("som-storage-used").textContent =
+          "Could not read storage information.";
+
+        byId("som-storage-message").textContent =
+          error.message;
+      }
+    }
+
+    async function requestPersistence() {
+      const message = byId("som-storage-message");
+
+      try {
+        if (!navigator.storage ||
+            !navigator.storage.persist) {
+          message.textContent =
+            "Persistent storage is not supported here.";
+          return;
+        }
+
+        const granted = await navigator.storage.persist();
+
+        byId("som-storage-persistent").textContent =
+          "Persistent storage: " +
+          (granted ? "Granted" : "Not granted");
+
+        message.textContent = granted
+          ? "Chrome granted persistent storage."
+          : "Chrome did not grant persistent storage. " +
+            "Your app can still save data normally.";
+
+        await refreshStorage();
+      } catch (error) {
+        message.textContent =
+          "Request failed: " + error.message;
+      }
+    }
+
+    byId("som-storage-refresh").addEventListener(
+      "click", refreshStorage
+    );
+
+    byId("som-storage-protect").addEventListener(
+      "click", requestPersistence
+    );
+
+    refreshStorage();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener(
+      "DOMContentLoaded", createStoragePanel,
+      { once: true }
+    );
+  } else {
+    createStoragePanel();
+  }
+})();
+
