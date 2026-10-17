@@ -28,8 +28,8 @@ body {
   max-width: 800px;
   border: 2px solid black;
   border-radius: 20px;
-  min-height: 100dvh;
-  overflow-y: auto;
+  overflow: hidden;
+  height: 100dvh;
 }
 
 button, input {
@@ -166,6 +166,7 @@ button {
   display: grid;
   gap: 10px;
   grid-auto-columns: 90%;
+  overflow-y: auto;
 }
 
 .song {
