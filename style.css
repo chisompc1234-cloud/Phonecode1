@@ -28,7 +28,6 @@ body {
   max-width: 800px;
   border: 2px solid black;
   border-radius: 20px;
-  overflow: hidden;
   height: 100dvh;
 }
 
@@ -64,7 +63,7 @@ button {
 .topbar span,
 .eyebrow,
 .track-info small {
-  color: var(--bg);
+  color: beige;
   font-size: 14px;
 }
 
