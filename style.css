@@ -52,7 +52,7 @@ button {
   top: 0;
   background: rgba(4, 15, 40);
   border-radius: 10px;
-  color: ghostwhite;
+  color: floralwhite;
   margin-bottom: 20px;
 }
 
@@ -110,6 +110,7 @@ button {
 
 .library {
   margin-top: 28px;
+  overflow-y: auto;
 }
 
 .section-heading {
